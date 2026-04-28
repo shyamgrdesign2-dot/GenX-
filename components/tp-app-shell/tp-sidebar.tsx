@@ -352,9 +352,11 @@ export function TPSidebar({
       </div>
 
       {switchAppEntry && (
-        <div className="shrink-0 border-t border-tp-slate-100 px-3 py-2.5 flex justify-center">
-          {/* Icon-only button in both collapsed and expanded states.
-              Title/aria-label provides the accessible tooltip on hover. */}
+        <div className={cn(
+          'shrink-0 border-t border-tp-slate-100 px-3 py-2.5 flex',
+          collapsed ? 'justify-center' : 'justify-start',
+        )}>
+          {/* Icon-only button — centred in collapsed mode, left-aligned in expanded. */}
           <button
             type="button"
             onClick={switchAppEntry.onClick}
