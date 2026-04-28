@@ -548,7 +548,7 @@ export function TPTopNavBar({
               style={{
                 width: 42,
                 height: 42,
-                outline: '1.5px solid var(--tp-slate-200)',
+                outline: '2px solid #ffffff',
                 outlineOffset: '1.5px',
               }}
               title={profile.name}
