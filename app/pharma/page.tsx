@@ -15,7 +15,7 @@ export default function PharmaPage() {
         label: 'Pharma',
         icon: <Pill size={14} variant="Bulk" color="var(--tp-violet-700)" />,
       }}
-      profile={{ name: 'Musfiq Rizwan', avatarUrl: '/profile-avatar.jpg' }}
+      profile={{ name: 'Musfiq Rizwan', avatarUrl: '/profile-avatar.png' }}
       switchAppEntry={{
         label: 'Switch product',
         onClick: () => router.push('/'),
