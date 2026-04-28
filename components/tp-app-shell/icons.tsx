@@ -363,77 +363,74 @@ export const Syrup: IconComp = ({ size = 24, color = 'currentColor', variant = '
  *   import { UserSettings } from './icons'
  *   { id: 'user-settings', label: 'User Settings', icon: UserSettings }
  *
- * Note: This icon is stroke-only; the Bulk variant uses a thicker stroke + opacity
- * on the outer profiles to create a two-tone effect.
+ * ─── Bulk variant rules ────────────────────────────────────────────────────────
+ * The Bulk variant is a TRUE two-tone fill icon — NOT a stroke icon with opacity.
+ * It follows the same pattern as all iconsax Bulk icons:
+ *
+ *   • Outer left + right profiles  → fill={color}  opacity="0.4"  (background / muted)
+ *   • Centre profile (head + body) → fill={color}  no opacity      (foreground / solid)
+ *
+ * ⚠️  Do NOT apply a uniform opacity to all paths — only the outer profile paths
+ *     get opacity 0.4. The centre profile must always render at full opacity so the
+ *     primary user stands out against the supporting ones.
+ *
+ * This icon is rendered with variant="Bulk" when the nav item is active/selected
+ * (both in expanded list and in collapsed icon-only mode).
+ * ──────────────────────────────────────────────────────────────────────────────
  */
-export const UserSettings: IconComp = ({ size = 24, color = 'currentColor', variant = 'Linear', className }) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-    className={className}
-  >
-    <g clipPath="url(#userset_clip)">
-      {/* outer left profile */}
-      <path
-        opacity={variant === 'Bulk' ? 0.4 : 1}
-        d="M5.96998 7.16C6.02998 7.15 6.09998 7.15 6.15998 7.16C7.53998 7.11 8.63998 5.98 8.63998 4.58C8.63998 3.15 7.48998 2 6.05998 2C4.62998 2 3.47998 3.16 3.47998 4.58C3.48998 5.98 4.58998 7.11 5.96998 7.16Z"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        opacity={variant === 'Bulk' ? 0.4 : 1}
-        d="M6.99994 14.4402C5.62994 14.6702 4.11994 14.4302 3.05994 13.7202C1.64994 12.7802 1.64994 11.2402 3.05994 10.3002C4.12994 9.59016 5.65994 9.35016 7.02994 9.59016"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* outer right profile */}
-      <path
-        opacity={variant === 'Bulk' ? 0.4 : 1}
-        d="M18.0001 7.16C17.9401 7.15 17.8701 7.15 17.8101 7.16C16.4301 7.11 15.3301 5.98 15.3301 4.58C15.3301 3.15 16.4801 2 17.9101 2C19.3401 2 20.4901 3.16 20.4901 4.58C20.4801 5.98 19.3801 7.11 18.0001 7.16Z"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        opacity={variant === 'Bulk' ? 0.4 : 1}
-        d="M16.9699 14.4402C18.3399 14.6702 19.8499 14.4302 20.9099 13.7202C22.3199 12.7802 22.3199 11.2402 20.9099 10.3002C19.8399 9.59016 18.3099 9.35016 16.9399 9.59016"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* centre / primary profile */}
-      <path
-        d="M12.0001 14.6297C11.9401 14.6197 11.8701 14.6197 11.8101 14.6297C10.4301 14.5797 9.33008 13.4497 9.33008 12.0497C9.33008 10.6197 10.4801 9.46973 11.9101 9.46973C13.3401 9.46973 14.4901 10.6297 14.4901 12.0497C14.4801 13.4497 13.3801 14.5897 12.0001 14.6297Z"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M9.09021 17.7794C7.68021 18.7194 7.68021 20.2594 9.09021 21.1994C10.6902 22.2694 13.3102 22.2694 14.9102 21.1994C16.3202 20.2594 16.3202 18.7194 14.9102 17.7794C13.3202 16.7194 10.6902 16.7194 9.09021 17.7794Z"
-        stroke={color}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </g>
-    <defs>
-      <clipPath id="userset_clip">
-        <rect width="24" height="24" fill="white" />
-      </clipPath>
-    </defs>
-  </svg>
-)
+export const UserSettings: IconComp = ({ size = 24, color = 'currentColor', variant = 'Linear', className }) => {
+  if (variant === 'Bulk') {
+    return (
+      <svg
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        className={className}
+      >
+        {/* outer right profile — muted (background layer) */}
+        <path opacity="0.4" d="M17.53 7.77C17.46 7.76 17.39 7.76 17.32 7.77C15.77 7.72 14.54 6.45 14.54 4.89C14.54 3.3 15.83 2 17.43 2C19.02 2 20.32 3.29 20.32 4.89C20.31 6.45 19.08 7.72 17.53 7.77Z" fill={color} />
+        <path opacity="0.4" d="M20.79 14.7004C19.67 15.4504 18.1 15.7304 16.65 15.5404C17.03 14.7204 17.23 13.8104 17.24 12.8504C17.24 11.8504 17.02 10.9004 16.6 10.0704C18.08 9.8704 19.65 10.1504 20.78 10.9004C22.36 11.9404 22.36 13.6504 20.79 14.7004Z" fill={color} />
+        {/* outer left profile — muted (background layer) */}
+        <path opacity="0.4" d="M6.44002 7.77C6.51002 7.76 6.58002 7.76 6.65002 7.77C8.20002 7.72 9.43002 6.45 9.43002 4.89C9.43002 3.3 8.14002 2 6.54002 2C4.95002 2 3.65002 3.29 3.65002 4.89C3.66002 6.45 4.89002 7.72 6.44002 7.77Z" fill={color} />
+        <path opacity="0.4" d="M6.54999 12.8496C6.54999 13.8196 6.75999 14.7396 7.13999 15.5696C5.72999 15.7196 4.26 15.4196 3.18 14.7096C1.6 13.6596 1.6 11.9496 3.18 10.8996C4.25 10.1796 5.75999 9.88962 7.18 10.0496C6.77 10.8896 6.54999 11.8396 6.54999 12.8496Z" fill={color} />
+        {/* centre profile — solid, full opacity (primary / foreground) */}
+        <path d="M12.12 15.87C12.04 15.86 11.95 15.86 11.86 15.87C10.02 15.81 8.54999 14.3 8.54999 12.44C8.54999 10.54 10.08 9 11.99 9C13.89 9 15.43 10.54 15.43 12.44C15.43 14.3 13.97 15.81 12.12 15.87Z" fill={color} />
+        <path d="M8.86999 17.9396C7.35999 18.9496 7.35999 20.6096 8.86999 21.6096C10.59 22.7596 13.41 22.7596 15.13 21.6096C16.64 20.5996 16.64 18.9396 15.13 17.9396C13.42 16.7896 10.6 16.7896 8.86999 17.9396Z" fill={color} />
+      </svg>
+    )
+  }
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      className={className}
+    >
+      <g clipPath="url(#userset_clip)">
+        {/* outer left profile */}
+        <path d="M5.96998 7.16C6.02998 7.15 6.09998 7.15 6.15998 7.16C7.53998 7.11 8.63998 5.98 8.63998 4.58C8.63998 3.15 7.48998 2 6.05998 2C4.62998 2 3.47998 3.16 3.47998 4.58C3.48998 5.98 4.58998 7.11 5.96998 7.16Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M6.99994 14.4402C5.62994 14.6702 4.11994 14.4302 3.05994 13.7202C1.64994 12.7802 1.64994 11.2402 3.05994 10.3002C4.12994 9.59016 5.65994 9.35016 7.02994 9.59016" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        {/* outer right profile */}
+        <path d="M18.0001 7.16C17.9401 7.15 17.8701 7.15 17.8101 7.16C16.4301 7.11 15.3301 5.98 15.3301 4.58C15.3301 3.15 16.4801 2 17.9101 2C19.3401 2 20.4901 3.16 20.4901 4.58C20.4801 5.98 19.3801 7.11 18.0001 7.16Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M16.9699 14.4402C18.3399 14.6702 19.8499 14.4302 20.9099 13.7202C22.3199 12.7802 22.3199 11.2402 20.9099 10.3002C19.8399 9.59016 18.3099 9.35016 16.9399 9.59016" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        {/* centre / primary profile */}
+        <path d="M12.0001 14.6297C11.9401 14.6197 11.8701 14.6197 11.8101 14.6297C10.4301 14.5797 9.33008 13.4497 9.33008 12.0497C9.33008 10.6197 10.4801 9.46973 11.9101 9.46973C13.3401 9.46973 14.4901 10.6297 14.4901 12.0497C14.4801 13.4497 13.3801 14.5897 12.0001 14.6297Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M9.09021 17.7794C7.68021 18.7194 7.68021 20.2594 9.09021 21.1994C10.6902 22.2694 13.3102 22.2694 14.9102 21.1994C16.3202 20.2594 16.3202 18.7194 14.9102 17.7794C13.3202 16.7194 10.6902 16.7194 9.09021 17.7794Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </g>
+      <defs>
+        <clipPath id="userset_clip">
+          <rect width="24" height="24" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  )
+}
 
 /**
  * GivePill icon — dispensing medication to patients.
