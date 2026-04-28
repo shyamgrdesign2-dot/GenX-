@@ -1,48 +1,29 @@
-"use client"
+'use client'
+
+import * as React from 'react'
 
 /**
- * TutorialPlayIcon — Custom concentric-circle play button icon
- * matching the Dr. Agent design system tutorial icon spec.
- *
- * Features:
- *   - Outer purple ring
- *   - Inner filled purple circle
- *   - White play triangle
- *
- * Default color: #8A4DBB
+ * TutorialPlayIcon — circular play button used in the clinical (RxPad) top bar.
+ * Matches the Figma "Tutorial" tile: gradient ring + white play triangle.
  */
-export function TutorialPlayIcon({ size = 28, color = "#8A4DBB" }: { size?: number; color?: string }) {
+export function TutorialPlayIcon({ size = 28 }: { size?: number }) {
   return (
     <svg
       width={size}
       height={size}
-      viewBox="0 0 48 48"
+      viewBox="0 0 28 28"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      {/* Outer ring */}
-      <circle
-        cx="24"
-        cy="24"
-        r="21"
-        stroke={color}
-        strokeWidth="3.5"
-        fill="none"
-      />
-      {/* Inner filled circle */}
-      <circle
-        cx="24"
-        cy="24"
-        r="15"
-        fill={color}
-      />
-      {/* Play triangle */}
-      <path
-        d="M20.5 15L33 24L20.5 33V15Z"
-        fill="white"
-      />
+      <circle cx="14" cy="14" r="13" stroke="url(#tpi_grad)" strokeWidth="1.5" />
+      <path d="M11 10.2l7 3.8-7 3.8V10.2Z" fill="url(#tpi_grad)" />
+      <defs>
+        <linearGradient id="tpi_grad" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#7B61FF" />
+          <stop offset="1" stopColor="#4B4AD5" />
+        </linearGradient>
+      </defs>
     </svg>
   )
 }
-
