@@ -545,7 +545,12 @@ export function TPTopNavBar({
           {profile && (
             <div
               className="relative shrink-0 flex items-center justify-center rounded-full overflow-hidden bg-tp-slate-100"
-              style={{ width: 42, height: 42 }}
+              style={{
+                width: 42,
+                height: 42,
+                outline: '1.5px solid var(--tp-slate-200)',
+                outlineOffset: '1.5px',
+              }}
               title={profile.name}
             >
               {profile.avatarUrl ? (
